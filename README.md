@@ -8,7 +8,8 @@ This is based off of [gulp-sourcemaps] and to a lesser extent [gulp-concat-sourc
 npm install gulp-sourcemapper --save-dev
 ```
 ###What it does
-sourcemapper.attach([options]) attaches a sourceMap for the file being processed. sourcemapper.addMapfile() creates the sourceMap and add's it to the gulp pipeline or optionally appends it directly to the end of the sourcefile. 
+```sourcemapper.attach([options])``` attaches a sourceMap stub to any sourcfile that is processed processed. 
+```sourcemapper.addMapfile()``` attaches the finalized sourceMap to the gulp pipeline or optionally appends it directly to the end of the sourcefile. 
 ```javascript
 var gulp         = require('gulp');
 var concat       = require('gulp-concat-sourcemapper');
@@ -18,8 +19,8 @@ var sourcemapper = require('gulp-sourcemapper');
 gulp.task('buildJS', function() {
   gulp.src('dev/js/*.js')
     .pipe(sourcemapper.attach())        // Attach sourceNap all files that pass throughm
-      .pipe(concat('app.js'))
-      .pipe(uglify())
+      .pipe(concat('app.js'))           // Concat will fill in the sourceMap contents for each source file 
+      .pipe(uglify())                   // uglify will take the concatenated file and update the sourceMap 
     .pipe(sourcemaps.addMapFile())      // Create a new gulp file and add it into the pipeline 
     .pipe(gulp.dest('production/js'));
 });
