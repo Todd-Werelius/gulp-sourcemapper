@@ -3,7 +3,6 @@ gulp-sourcemapper
 A gulp sourceMap pre and post processor plugin
 
 This is based off of [gulp-sourcemaps] and to a lesser extent [gulp-concat-sourcemap] both of which had issues and in my opinion did not work correctly. See foot notes if your interested in the details. 
-
 ###Install it 
 ```
 npm install gulp-sourcemapper --save-dev
@@ -25,13 +24,11 @@ gulp.task('buildJS', function() {
     .pipe(gulp.dest('production/js'));
 });
 ```
-
 The plugins inbetween the sourcemapper.attach() sourcemapper.addMapFile() should be sourceMap aware to take advantage the attached sourceMapped property. 
 
 The only plugins I have tested it with are gulp-concat-sourcmapper, gulp-uglify, and gulp-uglifyjs. 
 ###attach([options]) 
 A number of options are avialble for the attach() pre-processor, the defaults are listed below
-
 ```
 options = {
   sourceMapLink : [true]  | false,
@@ -40,7 +37,6 @@ options = {
   relativeIdx   : 0       | URL path segments to remove 
 }
 ```
-
 #####sourceMapLink
 If set to true this will create an external sourceMap with the name of the file that is output to sourcemapper.addMapFile() with .map appended to the name, in the exampe this woudl resolve to app.js.map 
 
