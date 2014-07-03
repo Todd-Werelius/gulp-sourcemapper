@@ -43,22 +43,48 @@ options = {
 ```
 #####sourceMapExt
 Default is true. This will create an external sourceMap using the name of the file that is piped into sourcemapper.addMapFile() but with a ```.map``` appended to the name, in the exampe this woudl resolve to ```app.js.map``` 
-If set to a string this will create an external sourceMap using the value of the string to create the name of the sourceMap file. A relative path can be prefixed to the name in which case gulp.dest() will use nodejs's path.join logic to resolve it. 
+If set to a string this will create an external sourceMap using the value of the string to create the name of the sourceMap file. A relative path can be prefixed to the name in which case gulp.dest() will use nodejs's path.join logic to resolve teh actual path. 
 
-If set to false the sourceMap contents will be directly appended to the end of the sourceFile. 
+If set to false the sourceMap contents will be directly appended to the end of the sourceFile in base64 format.  
+#####sourceMapURL
+This option is only processed if sourceMapExt is true or a string, otherwise it is ignored since the sourceMap will be appended to the source file 
 
-#####sourceMapLink
-This option is only processed it if sourceMapExt is true or a string, otherwise it is ignored sinc the sourcemap is directly embeded. 
+Default is true. Appends an annotation to the end of the sourcefile that links to the location of the sourceMap map for this file on an accessible server.  This allows browsers to download the sourcemap for in browser debugging.  
 
-Default is true. Appends an annotation to the end of the sourcefile that links the location of the sourceMap map for this file to a remote URL.  This allows browsers to load the sourcemap.  
+Setting this to false will skip the annotation ( not reccomended unless you have a good reason ) 
+#####sourceAttach 
+Default true; This will add your the unmodified source code into the sourceMap so that the server does not need to download the source code when debugging.  
 
-Setting this to false will skip the annotation, unless you are going to attach an annotation yourself with something like gulp-footer that is not reccomended. 
+This is the safest way to make sure that source code is always available for debugging without worrying about hosting it on your server, but will make the sourceMaps much bigger.
 
-#####souceAttach 
-Default true; This will emebded the actual source code into the sourceMap so that the server does not attempt to download the source code.  
-This is the safest way to make sure that source code is available for debugging without worrying about hosting it on yoru server, but will make the sourceMaps much bigger.
-Generally if you want anyone to debug your code, such as for an open source project, then attaching the code makes sense.
+Generally if you want anyone to debug your code, from anywhere, then attaching the source code makes sense.
 
+False will skip adding the source code into the sourceMap the browser instead will depend on the location URL's in the sourceMap of all your source files.
+#####relativeIdx
+Each source file that is referened in your sourceMap will have a sources entry that gives the relative path of that file. 
+
+e.g. if you were using the following directory structure and grabbing the ```app.js``` and ```lib.js`` files when building your sourceMap the default entries would look something like) 
+
+```[js/app.js,js/lib.js] ```
+
+```
++public
+  --js
+      app.js
+      lib.js
+```
+When a browser tried to download those files it would try and get them from http://mysite.com/js/app.  
+
+By setting relativeIdx to something greater than one you are telling the plugin to start stripping leading directory's off your realtive path.
+
+```realitiveIdx : 1 ```
+
+Would modify the source links to ```[app.js,lib.js]``` and try and download them from http://mysite.com/app.js etc. 
+
+If you wanted to strip all path information and just use the names you can set this to an arbitraily high number like 999. #####sourceRoot
+
+
+###Assoicated Gulp Plugin's
 
 #####gulp-concat-sourcemapper 
 A modied version of floridoos gulp-concat variant that is NPM hosted and supports sourceMap's as well as addressing issues I had with his version of the plugin.
