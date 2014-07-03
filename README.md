@@ -8,7 +8,7 @@ This is based off of [gulp-sourcemaps] and to a lesser extent [gulp-concat-sourc
 npm install gulp-sourcemapper --save-dev
 ```
 ###What it does
-```sourcemapper.attach([options])``` attaches a sourceMap stub to any sourcfile that is piped through
+```sourcemapper.attach([options])``` attaches a sourceMap stub to any sourcfile that is piped through it.
 ```sourcemapper.addMapfile()``` attaches the finalized sourceMap to the gulp out pipe or optionally appends it directly to the end of the sourcefile. 
 ```javascript
 var gulp         = require('gulp');
