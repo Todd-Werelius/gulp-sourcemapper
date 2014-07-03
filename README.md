@@ -18,10 +18,12 @@ var sourcemapper = require('gulp-sourcemapper');
 
 gulp.task('buildJS', function() {
   gulp.src('dev/js/*.js')
-    .pipe(sourcemapper.attach())        // Attach sourceNap all files that pass throughm
+    .pipe(sourcemapper.attach())        // Attach a sourceNap stub to all source files piped through 
       .pipe(concat('app.js'))           // Concat will fill in the sourceMap contents for each source file 
-      .pipe(uglify())                   // uglify will take the concatenated file and update the sourceMap 
-    .pipe(sourcemaps.addMapFile())      // Create a new gulp file and add it into the pipeline 
+                                        // and then create a single sourceMap before it pipes the results out
+      .pipe(uglify())                   // uglify will take the concatenated file and update the sourceMap to 
+                                        // account for the minification process 
+    .pipe(sourcemaps.addMapFile())      // Adds the map file to the output or appends it to the sourcefile  
     .pipe(gulp.dest('production/js'));
 });
 ```
@@ -39,8 +41,8 @@ options = {
 }
 ```
 #####sourceMapLink
-If set to true this will create an external sourceMap with the name of the file that is output to sourcemapper.addMapFile() with .map appended to the name, in the exampe this woudl resolve to app.js.map 
-
+If set to true this will create an external sourceMap with the name of the file that is output via sourcemapper.addMapFile() with a ```.map``` appended to the name, in the exampe this woudl resolve to ```app.js.map``` 
+`
 #####gulp-concat-sourcemapper 
 A modied version of floridoos gulp-concat variant that is NPM hosted and supports sourceMap's as well as addressing issues I had with his version of the plugin.
 
