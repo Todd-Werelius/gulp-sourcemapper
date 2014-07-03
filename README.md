@@ -43,6 +43,7 @@ options = {
 ```
 #####sourceMapExt
 Default is true. This will create an external sourceMap using the name of the file that is piped into sourcemapper.addMapFile() but with a ```.map``` appended to the name, in the exampe this woudl resolve to ```app.js.map``` 
+
 If set to a string this will create an external sourceMap using the value of the string to create the name of the sourceMap file. A relative path can be prefixed to the name in which case gulp.dest() will use nodejs's path.join logic to resolve the final destination. 
 
 If set to false the sourceMap contents will be directly appended to the end of the sourceFile in base64 format.  
