@@ -27,7 +27,7 @@ gulp.task('buildJS', function() {
     .pipe(gulp.dest('production/js'));
 });
 ```
-The plugins inbetween the ```sourcemapper.attach()``` and ```sourcemapper.addMapFile()``` should be sourceMap aware to take advantage of the attached sourceMapped property. 
+The plugins inbetween the ```sourcemapper.attach()``` and ```sourcemapper.addMapFile()``` should be sourceMap aware to take advantage of the attached sourceMap property attached to the file. 
 
 The only plugins I have tested it with are ```gulp-concat-sourcmapper```, ```gulp-uglify```, and ```gulp-uglifyjs```. 
 ###attach([options]) 
